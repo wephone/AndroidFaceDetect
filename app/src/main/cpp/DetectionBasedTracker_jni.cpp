@@ -1,4 +1,4 @@
-#include <DetectionBasedTracker_jni.h>
+#include "DetectionBasedTracker_jni.h"
 #include <opencv2/core.hpp>
 #include <opencv2/objdetect.hpp>
 
@@ -6,6 +6,7 @@
 #include <vector>
 
 #include <android/log.h>
+#include <jni.h>
 
 #define LOG_TAG "FaceDetection/DetectionBasedTracker"
 #define LOGD(...) ((void)__android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__))
