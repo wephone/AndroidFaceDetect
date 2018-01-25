@@ -24,3 +24,9 @@
 - 当相机预览因为某些原因停止时该方法被调用
 - 这个方法调用后，onCameraFrame方法将不再接收到图像帧
 - 用于释放一些资源
+### Imgproc.cvtColor方法
+- 作用：转换图像的颜色，彩色 灰度，HSV 等等
+- InputArray src: 输入图像即要进行颜色空间变换的原图像，可以是Mat类
+- OutputArray dst: 输出图像即进行颜色空间变换后存储图像，也可以Mat类
+- int code: 转换的代码或标识例如Imgproc.COLOR_GRAY2RGBA，即在此确定将什么制式的图片转换成什么制式的图片，后面会详细将
+- int dstCn = 0: 目标图像通道数，如果取值为0，则由src和code决定

@@ -3,12 +3,19 @@ package org.opencv.samples.facedetect;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
+import org.opencv.android.LoaderCallbackInterface;
+import org.opencv.android.OpenCVLoader;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.imgproc.Imgproc;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by wephone on 18-1-25.
@@ -19,17 +26,15 @@ import org.opencv.core.Mat;
  * 通常图像像素数据都会很大，因此，在图像的复制和传递过程中不需要复制整个Mat数据，只复制矩阵头和指向像素矩阵的指针即可
  */
 
-public class MyActivity extends Activity implements CameraBridgeViewBase.CvCameraViewListener {
+public class MyActivity extends Activity implements CameraBridgeViewBase.CvCameraViewListener2 {
 
     private Button deal;
     private Button changeCamera;
+    //OpenCV的相机接口
+    private CameraBridgeViewBase mCVCamera;
     //缓存相机每帧输入的数据
     private Mat mRgba;
-    /**
-     * 当前处理状态
-     * Cur_State与图像处理的每个类型对应，0对应默认状态，也就是显示原图，
-     * 1-7分别对应：灰化、Canny边缘检测、Hist直方图计算、Sobel边缘检测、SEPIA(色调变换)、ZOOM放大镜、PIXELIZE像素化
-     */
+    //当前处理状态
     private static int Cur_State = 0;
 
     @Override
@@ -37,10 +42,13 @@ public class MyActivity extends Activity implements CameraBridgeViewBase.CvCamer
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_activity);
         deal = (Button) findViewById(R.id.deal_btn);
+        mCVCamera = (CameraBridgeViewBase) findViewById(R.id.camera_view);
+        //CAMERA_ID_FRONT前置摄像头 CAMERA_ID_BACK后置摄像头
+        mCVCamera.setCameraIndex(CameraBridgeViewBase.CAMERA_ID_FRONT);
         deal.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if(Cur_State<8){
+                if(Cur_State<1){
                     //切换状态
                     Cur_State ++;
                 }else{
@@ -50,7 +58,26 @@ public class MyActivity extends Activity implements CameraBridgeViewBase.CvCamer
             }
 
         });
+        mCVCamera.setCvCameraViewListener(this);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!OpenCVLoader.initDebug()) {
+            Log.e("log_wons", "OpenCV init error");
+            // Handle initialization error
+        }
+        mCVCamera.enableView();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mCVCamera != null) {
+            mCVCamera.disableView();
+        }
+    };
 
     @Override
     public void onCameraViewStarted(int width, int height) {
@@ -64,7 +91,17 @@ public class MyActivity extends Activity implements CameraBridgeViewBase.CvCamer
     }
 
     @Override
-    public Mat onCameraFrame(Mat inputFrame) {
-        return null;
+    public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
+        mRgba=inputFrame.rgba();
+        switch (Cur_State) {
+            case 1:
+                Log.i("test",Cur_State+"");
+                //灰度化
+                Imgproc.cvtColor(inputFrame.gray(), mRgba, Imgproc.COLOR_GRAY2RGBA, 4);
+                break;
+            default:
+                mRgba = inputFrame.rgba();
+        }
+        return mRgba;
     }
 }
