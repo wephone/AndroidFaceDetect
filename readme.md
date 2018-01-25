@@ -30,3 +30,29 @@
 - OutputArray dst: 输出图像即进行颜色空间变换后存储图像，也可以Mat类
 - int code: 转换的代码或标识例如Imgproc.COLOR_GRAY2RGBA，即在此确定将什么制式的图片转换成什么制式的图片，后面会详细将
 - int dstCn = 0: 目标图像通道数，如果取值为0，则由src和code决定
+### Imgproc.rectangle方法
+- 作用在原有图上绘制一个矩形
+- img 图像
+- pt1 矩形上一个顶点
+- pt2 矩形对角线上的另一个顶点
+- color 线条颜色 (RGB) 或亮度（灰度图像 ）(grayscale image）
+- thickness 组成矩形的线条的粗细程度。取负值时（如 CV_FILLED）函数绘制填充了色彩的矩形。
+- line_type 线条的类型。见cvLine的描述
+- shift 坐标点的小数点位数。
+### Scalar
+- 代表一个4元素的向量。Scalar类型广泛用于OpenCV中，用于传递像素值。
+- 广泛使用它来表示BGR颜色值（3个参数）。如果不使用最后一个参数，则无需定义最后一个参数。
+### Rect 矩形类
+- rect.tl();       //返回rect的左上顶点的坐标
+- rect.br();       //返回rect的右下顶点的坐标
+### CascadeClassifier.detectMultiScale
+- 作用：检测多个符合的目标
+- image 待检测图片，一般为灰度图像加快检测速度
+- objects 被检测物体的矩形框向量组
+- scaleFactor 表示在前后两次相继的扫描中，搜索窗口的比例系数。默认为1.1即每次搜索窗口依次扩大10%
+- minNeighbors 最小邻居数 表示构成检测目标的相邻矩形的最小个数,如果组成检测目标的小矩形的个数和小于 min_neighbors - 1 都会被排除,这种设定值一般用在用户自定义对检测结果的组合程序上
+- flags 兼容老版本的一个参数
+- minSize 最小尺寸，检测出的人脸最小尺寸
+- maxSize 最大尺寸，检测出的人脸最大尺寸
+
+## 利用opencv训练基于Haar特征、LBP特征、Hog特征的分类器cascade.xml
