@@ -1,6 +1,7 @@
 package org.opencv.samples.facedetect;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -11,6 +12,7 @@ import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
+import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.imgproc.Imgproc;
@@ -29,7 +31,7 @@ import static android.content.ContentValues.TAG;
 public class MyActivity extends Activity implements CameraBridgeViewBase.CvCameraViewListener2 {
 
     private Button deal;
-    private Button changeCamera;
+
     //OpenCV的相机接口
     private CameraBridgeViewBase mCVCamera;
     //缓存相机每帧输入的数据

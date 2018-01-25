@@ -14,15 +14,20 @@
         opencv:camera_id="any"/>
 
     <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:gravity="bottom|center_horizontal">
-        <Button
-            android:id="@+id/deal_btn"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:layout_marginBottom="20dp"
-            android:text="处理"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom|center_vertical">
+        <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true">
+            <Button
+                android:id="@+id/deal_btn"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:text="灰度处理"/>
+        </LinearLayout>
     </RelativeLayout>
 
 </FrameLayout>
