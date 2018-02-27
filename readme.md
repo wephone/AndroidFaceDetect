@@ -56,3 +56,8 @@
 - maxSize 最大尺寸，检测出的人脸最大尺寸
 
 ## 利用opencv训练基于Haar特征、LBP特征、Hog特征的分类器cascade.xml
+- 提供正样本 负样本
+- 编写neg.txt pos.txt 写出对应的正负样本图片路径
+- opencv安装后/usr/local/bin/ 目录下会有opencv_createsamples opencv_traincascade等可执行程序
+- opencv_createsamples 用于生成正负样本集描述文件
+- opencv_traincascade 用于训练生成分类器.xml

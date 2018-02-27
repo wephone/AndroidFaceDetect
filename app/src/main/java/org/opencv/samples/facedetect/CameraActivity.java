@@ -59,8 +59,9 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
             // Copy the resource into a temp file so OpenCV can load it
             InputStream is = getResources().openRawResource(R.raw.lbpcascade_frontalface);
             File cascadeDir = getDir("cascade", Context.MODE_PRIVATE);
-            File mCascadeFile = new File(cascadeDir, "lbpcascade_frontalface.xml");
+//            File mCascadeFile = new File(cascadeDir, "lbpcascade_frontalface.xml");
 //            File mCascadeFile = new File(cascadeDir, "haarcascade_frontalface_default.xml");
+            File mCascadeFile = new File(cascadeDir, "my_cascade.xml");
             FileOutputStream os = new FileOutputStream(mCascadeFile);
 
 
